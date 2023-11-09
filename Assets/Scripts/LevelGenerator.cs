@@ -32,10 +32,6 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
-        for (int x = 0; x<5; x++)
-            availSmallPos.Add(x+1);
-        for (int x = 0; x<3; x++)
-            availLargePos.Add(x+1);
         GeneratePremadeClouds();
     }
 
@@ -45,15 +41,16 @@ public class LevelGenerator : MonoBehaviour
         bool extra = false;
         for (int x = 0; x<5; x++)//generate 5 levels of 2 large clouds in random spots
         {
+            ResetLargePos();
             for (int y = 0; y < 2; y++)
             {
                 pos = ChooseRandFromList(availLargePos);
+                Debug.Log(pos);
                 GenerateLargeCloud(pos, extra);
-                Debug.Log("Cloud number: " + (y+1) + " level: " + x + " position: " + pos);
+                Debug.Log("Cloud number: " + y + " level: " + x + " position: " + pos);
             }
             clouds.Add(levelClouds);
             levelClouds.Clear();
-            ResetLargePos();
             currentLevel++;
         }
         for (int x = 0; x<7; x++) //generate 7 levels of either big cloud in midd or 2 on each side
@@ -61,12 +58,12 @@ public class LevelGenerator : MonoBehaviour
             ResetLargePos();
             if (Random.Range(0,2) == 0) // 1 in midd
             {
-                GenerateLargeCloud(2);
+                GenerateLargeCloud(1);
             }
             else
             {
-                GenerateLargeCloud(1);
-                GenerateLargeCloud(3);
+                GenerateLargeCloud(0);
+                GenerateLargeCloud(2);
             }
             currentLevel++;
         }
@@ -125,7 +122,7 @@ public class LevelGenerator : MonoBehaviour
 
     private float LargePosX(int pos) //convert 1-3 to -6.5f, 0f, 6.5f
     {
-        return (pos - 2) * largeMult;
+        return (pos - 1) * largeMult;
     }
 
     private float PosY(int lvl, bool extra) 
@@ -140,36 +137,31 @@ public class LevelGenerator : MonoBehaviour
 
     private float SmallPosX(int pos) //convert 1-3 to -6.5f, 0f, 6.5f
     {
-        return (pos - 3) * smallMult;
+        return (pos - 2) * smallMult;
     }
 
 
     private int ChooseRandFromList(List<int> list) //chose random int from list (1-3/5)
     {
-        var num = Random.Range(0,list.Count);
-        if ((list[num] == 0)&&(list.All(x => x != 0))) //if val is 0 redo (list.All(x => x != 0)
-        {    
-            num = ChooseRandFromList(list);
-        }
-        int val = list[num];
-        list[num] = 0;
+        int ind = Random.Range(0,list.Count);
+        int val = list[ind];
+        if (list.Count > 0)
+            list.RemoveAt(ind);
         return val;
     }
 
     private void ResetSmallPos() //generates list of 1-5, dont touch
     {
-        for (int x = 1; x<6; x++) // 0 is empty
-        {
-            availSmallPos[x-1]=x;
-        }
+        availSmallPos.Clear();
+        for (int x = 0; x<5; x++)
+            availSmallPos.Add(x);
     }
 
     private void ResetLargePos() //generates list of 1-3, dont touch
     {
-        for (int x = 1; x<4; x++) // 0 is empty
-        {
-            availLargePos[x-1]=x;
-        }
+        availLargePos.Clear();
+        for (int x = 0; x<3; x++)
+            availLargePos.Add(x);
     }
 
     private void ClearData()

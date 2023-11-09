@@ -24,6 +24,7 @@ public class SystemManager : MonoBehaviour //has all the global shit
 
     private ScoreCounter scoreCounter;
     private ProgressBar progBar;
+    private const int scoreModifier = 2;
 
     private void Start(){ //maybe change to find through instances
         player = GameObject.FindWithTag("Player");
@@ -41,16 +42,21 @@ public class SystemManager : MonoBehaviour //has all the global shit
             CheckHeight();
     }
 
+    public void AddScore(float score)
+    {
+        scoreCounter.UpdateScore(score * scoreModifier);
+    }
+
     private void CheckHeight(){
 
         if (playerPosition > height){
-            scoreCounter.UpdateScore(playerPosition - height);
+            AddScore(playerPosition - height);
             height = playerPosition;
         }
-        else if (playerPosition < height - 3.0f){ //change to when below loaded zone
-            Debug.Log("Game Over");
-            isGameOver = true;
-        }
+        // else if (playerPosition < height - 3.0f){ //change to when below loaded zone
+        //     Debug.Log("Game Over");
+        //     isGameOver = true;
+        // }
     }
 
 }

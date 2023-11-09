@@ -7,16 +7,18 @@ public class ScoreCounter : MonoBehaviour
 {
     public TextMeshProUGUI textComponent;
     public float score = 0;
-    private float intScore;
+    private int intScore;
 
-    private void Start(){
-        textComponent = GetComponent<TextMeshProUGUI>();
-    }
     public void UpdateScore(float scoreAdd) //add score then update
     {
         score += scoreAdd;
-        intScore = (int)score;
+        intScore = (int)score * 5;
         textComponent.text = intScore.ToString();
+    }
+
+    public int GetScore()
+    {
+        return intScore;
     }
     //add conditions of score here
 }

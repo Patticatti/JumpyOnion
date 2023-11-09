@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private enum MovementState { idle, jumping, falling}
     private bool isGrounded = false;
+    private float jumpHeight;
     private GameObject jumpCloud;
 
     [SerializeField] private AudioSource jumpSoundEffect;
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
+        jumpHeight = LevelGenerator.instance.cloudSpacing;
         //anim = GetComponent<Animator>();
     }
 
@@ -41,7 +44,7 @@ public class PlayerController : MonoBehaviour
         if ((rb.velocity.y < 0) && isGrounded) //falling
         {
             //jumpSoundEffect.Play();
-            Debug.Log("jump");
+            Debug.Log("jump: " + (int)Math.Round(transform.position.y / jumpHeight));
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             Destroy(jumpCloud);
         }

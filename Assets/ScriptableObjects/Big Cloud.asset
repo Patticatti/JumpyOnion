@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Big Cloud
   m_EditorClassIdentifier: 
   level: 0
-  posx: 0
-  poxy: 0
   cloudType: 0
+  posx: -6.5
+  posy: 0

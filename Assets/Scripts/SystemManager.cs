@@ -16,6 +16,7 @@ public class SystemManager : MonoBehaviour //has all the global shit
 
     public GameObject player;
     public GameObject progressBar;
+    public ProgressBar progBar;
 
     public float height = 0f;
     public float totalHeight = 20f;
@@ -23,7 +24,6 @@ public class SystemManager : MonoBehaviour //has all the global shit
     public bool isGameOver = false;
 
     private ScoreCounter scoreCounter;
-    private ProgressBar progBar;
     private const int scoreModifier = 2;
 
     private void Start(){ //maybe change to find through instances

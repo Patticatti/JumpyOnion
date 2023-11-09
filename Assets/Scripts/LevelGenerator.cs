@@ -32,11 +32,10 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
-        ClearData();
-        for (int x = 1; x<6; x++)
-            availSmallPos.Add(x);
-        for (int x = 1; x<4; x++)
-            availLargePos.Add(x);
+        for (int x = 0; x<5; x++)
+            availSmallPos.Add(x+1);
+        for (int x = 0; x<3; x++)
+            availLargePos.Add(x+1);
         GeneratePremadeClouds();
     }
 
@@ -46,18 +45,15 @@ public class LevelGenerator : MonoBehaviour
         bool extra = false;
         for (int x = 0; x<5; x++)//generate 5 levels of 2 large clouds in random spots
         {
-            ResetLargePos();
-            for (int y = 1; y < 3; y++)
+            for (int y = 0; y < 2; y++)
             {
-                if (!availLargePos.All(b => b == 0))
-                {
-                    pos = ChooseRandFromList(availLargePos);
-                    GenerateLargeCloud(pos, extra);
-                    Debug.Log("Cloud number : level : position : " + y + " " + x + " " + pos);
-                }
+                pos = ChooseRandFromList(availLargePos);
+                GenerateLargeCloud(pos, extra);
+                Debug.Log("Cloud number: " + (y+1) + " level: " + x + " position: " + pos);
             }
             clouds.Add(levelClouds);
             levelClouds.Clear();
+            ResetLargePos();
             currentLevel++;
         }
         for (int x = 0; x<7; x++) //generate 7 levels of either big cloud in midd or 2 on each side
@@ -74,7 +70,8 @@ public class LevelGenerator : MonoBehaviour
             }
             currentLevel++;
         }
-        Debug.Log("Levels Generated: " + currentLevel);
+        levels = currentLevel;
+        SystemManager.instance.progBar.SetTotalHeight(levels * cloudSpacing);
     }
 
     private void GenerateCloudRow(Cloud mainCloud, float mainChan, float extraChan) 
@@ -101,7 +98,7 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    private void GenerateLargeCloud(int posx, bool extra = false)
+    private void GenerateLargeCloud(int posx, bool extra = false) //posx is 1-3
     {
         cloud = null;
         cloud = (Cloud)ScriptableObject.CreateInstance(typeof(Cloud));
@@ -150,7 +147,8 @@ public class LevelGenerator : MonoBehaviour
     private int ChooseRandFromList(List<int> list) //chose random int from list (1-3/5)
     {
         var num = Random.Range(0,list.Count);
-        if (list[num] == 0){ //if val is 0 redo
+        if ((list[num] == 0)&&(list.All(x => x != 0))) //if val is 0 redo (list.All(x => x != 0)
+        {    
             num = ChooseRandFromList(list);
         }
         int val = list[num];
@@ -187,6 +185,8 @@ public class LevelGenerator : MonoBehaviour
             cloudList.Clear();
         }
         clouds.Clear();
+        availLargePos.Clear();
+        availSmallPos.Clear();
     }
 
     private void DeleteClouds()
@@ -196,5 +196,10 @@ public class LevelGenerator : MonoBehaviour
             Destroy(cloudsList[i]);
             cloudsList[i] = null;
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        ClearData();
     }
 }

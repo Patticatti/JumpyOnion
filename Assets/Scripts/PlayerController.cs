@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         if ((rb.velocity.y < 0) && isGrounded) //falling
         {
             //jumpSoundEffect.Play();
-            Debug.Log("jump: " + (int)Math.Round(transform.position.y / jumpHeight));
+            //Debug.Log("jump: " + (int)Math.Round(transform.position.y / jumpHeight));
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             Destroy(jumpCloud);
         }

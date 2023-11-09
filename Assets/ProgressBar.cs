@@ -1,23 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
-    private RectTransform rectT;
-    private int screenWidth;
-    private int screenHeight;
+    public Slider slider;
 
-
-    private void Start()
+    public void SetTotalHeight(float height)
     {
-        rectT = GetComponent<RectTransform>();
-        screenWidth = Screen.width;
-        screenHeight = Screen.height;
-        //y = 100
-        //x = 500
-        rectT.width = screenHeight - 100;
-        rectT.height = 100;
-        //SetInsetAndSizeFromParentEdge(Parent.GetComponent<RectTransform>().Left, 50, )
+        slider.maxValue = height;
+    }
+
+    public void UpdateProgress(float height)
+    {
+        slider.value = height;
     }
 }

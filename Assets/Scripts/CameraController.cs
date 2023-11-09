@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private float camHeight;
     private SystemManager systemManager;
 
     private void Start()
@@ -14,7 +13,6 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        camHeight = systemManager.playerPosition;
-        transform.position = new Vector3(0f, camHeight, -10f);
+        transform.position = new Vector3(0f, systemManager.playerPosition, -10f);
     }
 }

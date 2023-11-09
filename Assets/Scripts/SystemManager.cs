@@ -15,17 +15,25 @@ public class SystemManager : MonoBehaviour //has all the global shit
     #endregion
 
     public GameObject player;
+    public GameObject progressBar;
     public float height = 0f;
+    public float totalHeight = 20f;
     public float playerPosition;
     public bool isGameOver = false;
 
-    private void Start(){
+    private ProgressBar progBar;
+
+    private void Start(){ //maybe change to find through instances
         player = GameObject.FindWithTag("Player");
+        progressBar = GameObject.FindWithTag("Bar");
+        progBar = progressBar.GetComponent<ProgressBar>();
+        progBar.SetTotalHeight(totalHeight);
     }
 
     private void Update()
     {
         playerPosition = player.transform.position.y;
+        progBar.UpdateProgress(playerPosition); //move to game over after fix
         if (isGameOver == false)
             CheckHeight();
     }

@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
         if (dirX < 0)
             sprite.flipX = true;
-        else
+        else if (dirX > 0)
             sprite.flipX = false;
 
         if ((rb.velocity.y < 0) && IsGrounded()) //falling

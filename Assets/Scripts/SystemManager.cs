@@ -16,16 +16,19 @@ public class SystemManager : MonoBehaviour //has all the global shit
 
     public GameObject player;
     public GameObject progressBar;
+
     public float height = 0f;
     public float totalHeight = 20f;
     public float playerPosition;
     public bool isGameOver = false;
 
+    private ScoreCounter scoreCounter;
     private ProgressBar progBar;
 
     private void Start(){ //maybe change to find through instances
         player = GameObject.FindWithTag("Player");
         progressBar = GameObject.FindWithTag("Bar");
+        scoreCounter = GameObject.FindWithTag("Score").GetComponent<ScoreCounter>();;
         progBar = progressBar.GetComponent<ProgressBar>();
         progBar.SetTotalHeight(totalHeight);
     }
@@ -40,9 +43,11 @@ public class SystemManager : MonoBehaviour //has all the global shit
 
     private void CheckHeight(){
 
-        if (playerPosition > height)
+        if (playerPosition > height){
+            scoreCounter.UpdateScore(playerPosition - height);
             height = playerPosition;
-        if (playerPosition < height - 3.0f){ //change to when below loaded zone
+        }
+        else if (playerPosition < height - 3.0f){ //change to when below loaded zone
             Debug.Log("Game Over");
             isGameOver = true;
         }

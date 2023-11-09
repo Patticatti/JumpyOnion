@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     private enum MovementState { idle, jumping, falling}
     private bool isGrounded = false;
+    private GameObject jumpCloud;
 
     [SerializeField] private AudioSource jumpSoundEffect;
 
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
             //jumpSoundEffect.Play();
             Debug.Log("jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            Destroy(jumpCloud);
         }
 
         //UpdateAnimationState();
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Cloud"))
         {
+            jumpCloud = other.gameObject;
             isGrounded = true;
         }
     }

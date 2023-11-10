@@ -12,6 +12,10 @@ public class SystemManager : MonoBehaviour //has all the global shit
     {
         if (instance == null)
             instance = this;
+        player = GameObject.FindWithTag("Player");
+        progressBar = GameObject.FindWithTag("Bar");
+        scoreCounter = GameObject.FindWithTag("Score").GetComponent<ScoreCounter>();;
+        progBar = progressBar.GetComponent<ProgressBar>();
     }
     #endregion
 
@@ -29,10 +33,6 @@ public class SystemManager : MonoBehaviour //has all the global shit
     private const int scoreModifier = 2;
 
     private void Start(){ //maybe change to find through instances
-        player = GameObject.FindWithTag("Player");
-        progressBar = GameObject.FindWithTag("Bar");
-        scoreCounter = GameObject.FindWithTag("Score").GetComponent<ScoreCounter>();;
-        progBar = progressBar.GetComponent<ProgressBar>();
         progBar.SetTotalHeight(totalHeight);
     }
 

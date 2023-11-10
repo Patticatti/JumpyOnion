@@ -15,7 +15,7 @@ public class LevelGenerator : MonoBehaviour
     }
     #endregion
 
-    public int levels = 20; //set this to max amoutn of levels of clouds
+    public int levels; //set this to max amoutn of levels of clouds
     public int currentLevel = 0;
     public float cloudSpacing = 3.5f;
     public List<Cloud> levelClouds = new List<Cloud>(); //level clouds container
@@ -29,6 +29,7 @@ public class LevelGenerator : MonoBehaviour
     private const float smallMult = 4.0f;
     private const float maxCoins = 0.8f; //100*0.8 is 80 jump to get highest
     private const float minCoins = 0.1f; //30 jump to start getting doubles
+    private bool gennedLevel = false;
 
     private List<GameObject> objectsList = new List<GameObject>(); //all objects
     private List<int> availSmallPos = new List<int>(); //5 per level
@@ -71,45 +72,102 @@ public class LevelGenerator : MonoBehaviour
         }
         for (int x = 0; x<5; x++)
         {
-            GenerateCloudRow(currentLevel, 0.8f, false);
-            GenerateCloudRow(currentLevel, 0.8f, true);
+            GenerateCloudRow(currentLevel, 0.8f, 0.2f, 0.5f);
             currentLevel++;
         }
-        SystemManager.instance.progBar.SetTotalHeight(levels * cloudSpacing);
+        for (int x = 0; x<10; x++)
+        {
+            GenerateCloudRow(currentLevel, 0.2f, 0.2f, 0.5f);
+            currentLevel++;
+        }
+        for (int x = 0; x<20; x++)
+        {
+            GenerateCloudRow(currentLevel, 0.2f, 0f, 0.5f);
+            currentLevel++;
+        }
     }
 
-    private void GenerateCloudRow(int level, float chance, bool isExtra = false) 
+    private void LateUpdate()
+    {
+        if (!gennedLevel)
+        {
+            gennedLevel = true;
+            levels = currentLevel;
+            SystemManager.instance.progBar.SetTotalHeight(levels * cloudSpacing);
+        }
+    }
+
+    private void GenerateCloudRow(int level, float largeChance, float extraSize, float extraChance, int cloudAmnt = 0) 
     //reference cloud, change for main to be large, chance for extra to be large
     {
         ResetSmallPos(); //reset pos's
         ResetLargePos();
+
         int mainPos;
         //generate big cloud
-        if (Random.Range(0f,1.0f) < chance) //set as large
+        if (Random.Range(0f,1.0f) < largeChance) //set as large
         {
             mainPos = ChooseRandFromList(availLargePos);
-            GenerateCloud(mainPos, level, true, isExtra);
+            GenerateCloud(mainPos, level, true, false);
+            if ((mainPos == 0) || (mainPos == 2))
+            {
+                availSmallPos.RemoveAt(mainPos);
+            }
+            availSmallPos.RemoveAt(mainPos);
+            availSmallPos.RemoveAt(mainPos);
         }
         else
         {
             mainPos = ChooseRandFromList(availSmallPos);
-            GenerateCloud(mainPos, level, false, isExtra);
+            GenerateCloud(mainPos, level, false, false);
+            if (mainPos <= 1) //0,1
+            {
+                availLargePos.RemoveAt(0);
+            }
+            else if (mainPos >= 4) //4,5
+            {
+                availLargePos.RemoveAt(2);
+            }
+            else
+            {
+                availLargePos.RemoveAt(1);
+            }
+        }
+        if (Random.Range(0f,1.0f) < extraChance)
+        {
+            if (Random.Range(0f,1.0f) < extraSize) //set as large
+            {
+                mainPos = ChooseRandFromList(availLargePos);
+                GenerateCloud(mainPos, level, true, true);
+            }
+            else
+            {
+                mainPos = ChooseRandFromList(availSmallPos);
+                GenerateCloud(mainPos, level, false, true);
+            }
         }
     }
+
 
     private void CalcItemFrequency(int level, float posx, float posy) //per cloud
     {
         float maxFrequency = levels * maxCoins; //80
         float minFrequency = levels * minCoins; //30
-        float chance;
+        float chance = (level - minFrequency)/(maxFrequency - minFrequency);
+        float roll = Random.Range(0f,1f); //50% if below 0.3, above 100% (50 for 1, 50 for 2)
         if (level > minFrequency)
         {
-            chance = (level - minFrequency)/(maxFrequency - minFrequency);
-            if (Random.Range(0f,1f)<chance)
+            if (roll < chance)
             {
                 objectsList.Add(Instantiate(coinPrefab, new Vector3(posx, posy + 1.5f, 0f), Quaternion.identity));
             }
         }
+        // }
+        // else if (roll < )
+        // else
+        // {
+
+        // }
     }
 
     private void InstantiateCloud(Cloud cloud, int level, bool extra)

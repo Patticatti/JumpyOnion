@@ -4,8 +4,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private BoxCollider2D coll;
     private SpriteRenderer sprite;
+    private BoxCollider2D coll;
     //private Animator anim;
 
     private float dirX = 0f;

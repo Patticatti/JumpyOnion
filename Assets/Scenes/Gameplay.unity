@@ -295,11 +295,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1216198240 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1561437816547984241, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
-  m_PrefabInstance: {fileID: 8401558083408232814}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1216198241 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1063569249550114833, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
@@ -384,37 +379,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1318513021255528462, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
-      propertyPath: m_GravityScale
-      value: 1.5
+    - target: {fileID: 1672806791657022961, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
+      propertyPath: m_Size.x
+      value: 1.3492514
+      objectReference: {fileID: 0}
+    - target: {fileID: 1672806791657022961, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.023048341
       objectReference: {fileID: 0}
     - target: {fileID: 2433443349265269970, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
       propertyPath: m_Size.x
-      value: 0.42798615
+      value: 0.39824948
       objectReference: {fileID: 0}
     - target: {fileID: 2433443349265269970, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
       propertyPath: m_Size.y
-      value: 0.17083055
+      value: 0.40852678
       objectReference: {fileID: 0}
     - target: {fileID: 2433443349265269970, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
       propertyPath: m_Offset.x
-      value: 0.053385258
+      value: 0.04996644
       objectReference: {fileID: 0}
     - target: {fileID: 2433443349265269970, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
       propertyPath: m_Offset.y
-      value: -0.5691074
+      value: -0.45025927
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433443349265269970, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4258899319339319715, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4769631878527503022, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
-      propertyPath: jumpForce
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 4769631878527503022, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
-      propertyPath: moveSpeed
-      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8849408915961296817, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
       propertyPath: m_RootOrder
@@ -524,7 +519,27 @@ PrefabInstance:
     - target: {fileID: 4445189646748562497, guid: 8abf8a8cf3444684fb3af27b613dd2d3, type: 3}
       propertyPath: progressBar
       value: 
-      objectReference: {fileID: 1216198240}
+      objectReference: {fileID: 1561437816547984241, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+    - target: {fileID: 6446814695404992110, guid: 8abf8a8cf3444684fb3af27b613dd2d3, type: 3}
+      propertyPath: levels
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446814695404992110, guid: 8abf8a8cf3444684fb3af27b613dd2d3, type: 3}
+      propertyPath: coinPrefab
+      value: 
+      objectReference: {fileID: 3817218910669853182, guid: 76a1995d1d3d5214dab67792715f798c, type: 3}
+    - target: {fileID: 6446814695404992110, guid: 8abf8a8cf3444684fb3af27b613dd2d3, type: 3}
+      propertyPath: largeCloud
+      value: 
+      objectReference: {fileID: 5244479885749352952, guid: 28f918d8285f57f4181d9063b0533252, type: 3}
+    - target: {fileID: 6446814695404992110, guid: 8abf8a8cf3444684fb3af27b613dd2d3, type: 3}
+      propertyPath: smallCloud
+      value: 
+      objectReference: {fileID: 3048422671937342849, guid: 302dced840866be45803cbe6a02c894a, type: 3}
+    - target: {fileID: 6446814695404992110, guid: 8abf8a8cf3444684fb3af27b613dd2d3, type: 3}
+      propertyPath: currentLevel
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8842477937949393929, guid: 8abf8a8cf3444684fb3af27b613dd2d3, type: 3}
       propertyPath: m_Name
       value: System Manager
@@ -803,6 +818,14 @@ PrefabInstance:
     - target: {fileID: 1561437816547984241, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
       propertyPath: m_Name
       value: ProgressBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 2888057289001915922, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259710710362636155, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

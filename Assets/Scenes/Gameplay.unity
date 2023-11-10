@@ -328,6 +328,7 @@ MonoBehaviour:
   levelClouds: []
   smallCloud: {fileID: 3048422671937342849, guid: 302dced840866be45803cbe6a02c894a, type: 3}
   largeCloud: {fileID: 5244479885749352952, guid: 28f918d8285f57f4181d9063b0533252, type: 3}
+  coinPrefab: {fileID: 0}
 --- !u!224 &2055695395 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7583410246203941713, guid: 84d43e1fbcba7dd468823ef787c95c5a, type: 3}
@@ -352,11 +353,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2338306799200883134, guid: 28f918d8285f57f4181d9063b0533252, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.06688011
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2338306799200883134, guid: 28f918d8285f57f4181d9063b0533252, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3729479
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2338306799200883134, guid: 28f918d8285f57f4181d9063b0533252, type: 3}
       propertyPath: m_LocalPosition.z
@@ -449,7 +450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8849408915961296817, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.72
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8849408915961296817, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
       propertyPath: m_LocalPosition.z

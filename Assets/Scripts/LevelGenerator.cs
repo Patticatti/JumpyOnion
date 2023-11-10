@@ -16,12 +16,13 @@ public class LevelGenerator : MonoBehaviour
     #endregion
 
     public int levels; //set this to amoutn of levels of clouds
-    public int currentLevel = 1;
+    public int currentLevel = 0;
     public float cloudSpacing = 3.5f;
     public List<Cloud> levelClouds = new List<Cloud>(); //level clouds container
     public List<List<Cloud>> clouds = new List<List<Cloud>>(); //all clouds
     [SerializeField] private GameObject smallCloud;
-    [SerializeField] private GameObject largeCloud; 
+    [SerializeField] private GameObject largeCloud;
+    [SerializeField] private GameObject coinPrefab;  
     private Cloud cloud; //pointing to cloud
     private const float largeMult = 6.5f;
     private const float smallMult = 4.0f;
@@ -45,9 +46,7 @@ public class LevelGenerator : MonoBehaviour
             for (int y = 0; y < 2; y++)
             {
                 pos = ChooseRandFromList(availLargePos);
-                Debug.Log(pos);
-                GenerateLargeCloud(pos, extra);
-                Debug.Log("Cloud number: " + y + " level: " + x + " position: " + pos);
+                GenerateCloud(pos);
             }
             clouds.Add(levelClouds);
             levelClouds.Clear();
@@ -56,14 +55,14 @@ public class LevelGenerator : MonoBehaviour
         for (int x = 0; x<7; x++) //generate 7 levels of either big cloud in midd or 2 on each side
         {
             ResetLargePos();
-            if (Random.Range(0,2) == 0) // 1 in midd
+            if (Random.Range(0,2) == 0)
             {
-                GenerateLargeCloud(1);
+                GenerateCloud(1); // 1 in midd
             }
             else
             {
-                GenerateLargeCloud(0);
-                GenerateLargeCloud(2);
+                GenerateCloud(0);
+                GenerateCloud(2);
             }
             currentLevel++;
         }
@@ -95,32 +94,26 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    private void GenerateLargeCloud(int posx, bool extra = false) //posx is 1-3
+    private void GenerateCloud(int posx, bool large = true, bool extra = false)
     {
         cloud = null;
         cloud = (Cloud)ScriptableObject.CreateInstance(typeof(Cloud));
-        cloud.posx = LargePosX(posx);
+        if (large)
+        {
+            cloud.posx = LargePosX(posx);
+        }
+        else
+        {
+            cloud.posx = SmallPosX(posx);
+        }
         cloud.level = currentLevel;
         cloud.posy = PosY(currentLevel, extra);
         cloud.cloudType = 0;
         levelClouds.Add(cloud);
         InstantiateCloud(cloud);
-        //instantiate large cloud prefab at posx
     }
 
-    private void GenerateSmallCloud(int posx, bool extra = false)
-    {
-        cloud = null;
-        cloud = (Cloud)ScriptableObject.CreateInstance(typeof(Cloud));
-        cloud.posx = SmallPosX(posx);
-        cloud.level = currentLevel;
-        cloud.posy = PosY(currentLevel, extra);
-        cloud.cloudType = 1;
-        levelClouds.Add(cloud);
-        InstantiateCloud(cloud);
-    }
-
-    private float LargePosX(int pos) //convert 1-3 to -6.5f, 0f, 6.5f
+    private float LargePosX(int pos) //convert 0-2 to -6.5f, 0f, 6.5f
     {
         return (pos - 1) * largeMult;
     }
@@ -128,36 +121,36 @@ public class LevelGenerator : MonoBehaviour
     private float PosY(int lvl, bool extra) 
     {
         float mod = 0f;
-        if (extra) //-1.5f or 1.5f
+        if (extra) //-0.5f or 0.5f
         {
-            mod = 1.5f - (2 * (Random.Range(0,2) * 1.5f));//return 1.5 or -1.5f
+            mod = 0.5f - (2 * (Random.Range(0,2) * 0.5f));//return 0.4 or -0.5f
         }
         return (lvl * cloudSpacing) + mod;
     }
 
-    private float SmallPosX(int pos) //convert 1-3 to -6.5f, 0f, 6.5f
+    private float SmallPosX(int pos) //convert 0-2 to -6.5f, 0f, 6.5f
     {
         return (pos - 2) * smallMult;
     }
 
 
-    private int ChooseRandFromList(List<int> list) //chose random int from list (1-3/5)
+    private int ChooseRandFromList(List<int> list) //chose random int from list (0-2/4)
     {
-        int ind = Random.Range(0,list.Count);
+        int ind = Random.Range(0,(list.Count));
         int val = list[ind];
         if (list.Count > 0)
             list.RemoveAt(ind);
         return val;
     }
 
-    private void ResetSmallPos() //generates list of 1-5, dont touch
+    private void ResetSmallPos() //generates list of 0-4, dont touch
     {
         availSmallPos.Clear();
         for (int x = 0; x<5; x++)
             availSmallPos.Add(x);
     }
 
-    private void ResetLargePos() //generates list of 1-3, dont touch
+    private void ResetLargePos() //generates list of 0-2, dont touch
     {
         availLargePos.Clear();
         for (int x = 0; x<3; x++)

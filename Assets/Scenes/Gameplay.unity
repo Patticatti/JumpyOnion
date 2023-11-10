@@ -305,30 +305,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1063569249550114833, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
   m_PrefabInstance: {fileID: 8401558083408232814}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1843224973 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8842477937949393929, guid: 8abf8a8cf3444684fb3af27b613dd2d3, type: 3}
-  m_PrefabInstance: {fileID: 2828149323925066035}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1843224978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843224973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743a6385a3641b649b9334c67c3554eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levels: 0
-  currentLevel: 1
-  cloudSpacing: 3.5
-  levelClouds: []
-  smallCloud: {fileID: 3048422671937342849, guid: 302dced840866be45803cbe6a02c894a, type: 3}
-  largeCloud: {fileID: 5244479885749352952, guid: 28f918d8285f57f4181d9063b0533252, type: 3}
-  coinPrefab: {fileID: 3817218910669853182, guid: 76a1995d1d3d5214dab67792715f798c, type: 3}
 --- !u!224 &2055695395 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7583410246203941713, guid: 84d43e1fbcba7dd468823ef787c95c5a, type: 3}
@@ -549,10 +525,6 @@ PrefabInstance:
       propertyPath: progressBar
       value: 
       objectReference: {fileID: 1216198240}
-    - target: {fileID: 4445189646748562497, guid: 8abf8a8cf3444684fb3af27b613dd2d3, type: 3}
-      propertyPath: totalHeight
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 8842477937949393929, guid: 8abf8a8cf3444684fb3af27b613dd2d3, type: 3}
       propertyPath: m_Name
       value: System Manager
@@ -560,10 +532,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8842477937949393929, guid: 8abf8a8cf3444684fb3af27b613dd2d3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1843224978}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8abf8a8cf3444684fb3af27b613dd2d3, type: 3}
 --- !u!1001 &7221913297072269990
 PrefabInstance:
@@ -577,6 +546,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 8562652704811743585, guid: 00bed1d5909adbe4392620e3396c353b, type: 3}
+      propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562652704811743585, guid: 00bed1d5909adbe4392620e3396c353b, type: 3}
+      propertyPath: field of view
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 8784086026798811393, guid: 00bed1d5909adbe4392620e3396c353b, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -587,7 +564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8784086026798811393, guid: 00bed1d5909adbe4392620e3396c353b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8784086026798811393, guid: 00bed1d5909adbe4392620e3396c353b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -620,6 +597,10 @@ PrefabInstance:
     - target: {fileID: 8784086026798811393, guid: 00bed1d5909adbe4392620e3396c353b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8784086026798811393, guid: 00bed1d5909adbe4392620e3396c353b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -735,10 +716,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1157346269}
     m_Modifications:
-    - target: {fileID: 676411182031917581, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 27c45f3978513c84db34af3fbbe6eb8f, type: 3}
     - target: {fileID: 1063569249550114833, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -826,14 +803,6 @@ PrefabInstance:
     - target: {fileID: 1561437816547984241, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
       propertyPath: m_Name
       value: ProgressBar
-      objectReference: {fileID: 0}
-    - target: {fileID: 2888057289001915922, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6259710710362636155, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

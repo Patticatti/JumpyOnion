@@ -28,7 +28,7 @@ public class LevelGenerator : MonoBehaviour
     private const float largeMult = 6.5f;
     private const float smallMult = 4.0f;
     private const float maxCoins = 0.8f; //100*0.8 is 80 jump to get highest
-    private const float minCoins = 0.3f; //30 jump to start getting doubles
+    private const float minCoins = 0.1f; //30 jump to start getting doubles
 
     private List<GameObject> objectsList = new List<GameObject>(); //all objects
     private List<int> availSmallPos = new List<int>(); //5 per level

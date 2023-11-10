@@ -15,7 +15,7 @@ public class LevelGenerator : MonoBehaviour
     }
     #endregion
 
-    public int levels; //set this to amoutn of levels of clouds
+    public int levels = 20; //set this to max amoutn of levels of clouds
     public int currentLevel = 0;
     public float cloudSpacing = 3.5f;
     public List<Cloud> levelClouds = new List<Cloud>(); //level clouds container
@@ -24,10 +24,13 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private GameObject largeCloud;
     [SerializeField] private GameObject coinPrefab;  
     private Cloud cloud; //pointing to cloud
+
     private const float largeMult = 6.5f;
     private const float smallMult = 4.0f;
-    private List<GameObject> cloudsList = new List<GameObject>(); //cloud objects
+    private const float maxCoins = 0.8f; //100*0.8 is 80 jump to get highest
+    private const float minCoins = 0.3f; //30 jump to start getting doubles
 
+    private List<GameObject> objectsList = new List<GameObject>(); //all objects
     private List<int> availSmallPos = new List<int>(); //5 per level
     private List<int> availLargePos = new List<int>(); //3 per level
 
@@ -46,7 +49,7 @@ public class LevelGenerator : MonoBehaviour
             for (int y = 0; y < 2; y++)
             {
                 pos = ChooseRandFromList(availLargePos);
-                GenerateCloud(pos);
+                GenerateCloud(pos, currentLevel);
             }
             clouds.Add(levelClouds);
             levelClouds.Clear();
@@ -57,60 +60,74 @@ public class LevelGenerator : MonoBehaviour
             ResetLargePos();
             if (Random.Range(0,2) == 0)
             {
-                GenerateCloud(1); // 1 in midd
+                GenerateCloud(1, currentLevel); // 1 in midd
             }
             else
             {
-                GenerateCloud(0);
-                GenerateCloud(2);
+                GenerateCloud(0, currentLevel);
+                GenerateCloud(2, currentLevel);
             }
             currentLevel++;
         }
-        levels = currentLevel;
         SystemManager.instance.progBar.SetTotalHeight(levels * cloudSpacing);
     }
 
-    private void GenerateCloudRow(Cloud mainCloud, float mainChan, float extraChan) 
-    //cloud, change for main to be large, chance for extra to be large
+    private void GenerateCloudRow(float mainChance) 
+    //reference cloud, change for main to be large, chance for extra to be large
     {
+        //float coinFrequency = currentLevel*
+        if (Random.Range(0f,1.0f) < mainChance) //set as large
+        {
+            //GenerateCloud();
+        }
         //generate main cloud first then add if needed
         //first determine type of cloud based on main chance
         //Random.Range(mainChan);
         ResetSmallPos(); //reset pos's
         ResetLargePos();
-        //if (availSmallPos.All(x => x == 0)) //if no small positions avail
-        //if (availLargePos.All(x => x == 0))
     }
 
-    private void InstantiateCloud(Cloud cloud)
+    private void CalcItemFrequency(int level, float posx, float posy) //per cloud
     {
-        if (cloud.cloudType == 0)
+        float maxFrequency = levels * maxCoins; //80
+        float minFrequency = levels * minCoins; //30
+        float chance;
+        if (level > minFrequency)
         {
-            cloudsList.Add(Instantiate(largeCloud, new Vector3(cloud.posx, cloud.posy, 0f), Quaternion.identity));
+            chance = (level - minFrequency)/(maxFrequency - minFrequency);
+            if (Random.Range(0f,1f)<chance)
+            {
+                objectsList.Add(Instantiate(coinPrefab, new Vector3(posx, posy + 1.0f, 0f), Quaternion.identity));
+            }
+        }
+    }
+
+    private void InstantiateCloud(Cloud cloud, int level)
+    {
+        float newPosX;
+        if (!cloud.cloudType)
+        {
+            newPosX = LargePosX(cloud.posx);
+            objectsList.Add(Instantiate(largeCloud, new Vector3(newPosX, PosY(cloud.posy), 0f), Quaternion.identity));
         }
         else
         {
-            cloudsList.Add(Instantiate(smallCloud, new Vector3(cloud.posx, cloud.posy, 0f), Quaternion.identity));
+            newPosX = SmallPosX(cloud.posx);
+            objectsList.Add(Instantiate(smallCloud, new Vector3(newPosX, PosY(cloud.posy), 0f), Quaternion.identity));
         }
+        CalcItemFrequency(level, newPosX, PosY(cloud.posy));
     }
 
-    private void GenerateCloud(int posx, bool large = true, bool extra = false)
+    private void GenerateCloud(int posx, int level, bool large = true, bool extra = false)
     {
         cloud = null;
         cloud = (Cloud)ScriptableObject.CreateInstance(typeof(Cloud));
-        if (large)
-        {
-            cloud.posx = LargePosX(posx);
-        }
-        else
-        {
-            cloud.posx = SmallPosX(posx);
-        }
-        cloud.level = currentLevel;
-        cloud.posy = PosY(currentLevel, extra);
-        cloud.cloudType = 0;
+        cloud.posx = posx;
+        //cloud.level = currentLevel;
+        cloud.posy = level;
+        cloud.cloudType = !large;
         levelClouds.Add(cloud);
-        InstantiateCloud(cloud);
+        InstantiateCloud(cloud, level);
     }
 
     private float LargePosX(int pos) //convert 0-2 to -6.5f, 0f, 6.5f
@@ -118,7 +135,7 @@ public class LevelGenerator : MonoBehaviour
         return (pos - 1) * largeMult;
     }
 
-    private float PosY(int lvl, bool extra) 
+    private float PosY(int lvl, bool extra = false) 
     {
         float mod = 0f;
         if (extra) //-0.5f or 0.5f
@@ -159,7 +176,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void ClearData()
     {
-        DeleteClouds();
+        DeleteObjects();
         foreach (var cloudList in clouds)
         {
             for (int i = 0; i < cloudList.Count; i++)
@@ -174,12 +191,12 @@ public class LevelGenerator : MonoBehaviour
         availSmallPos.Clear();
     }
 
-    private void DeleteClouds()
+    private void DeleteObjects()
     {
-        for (int i = 0; i < cloudsList.Count; i++)
+        for (int i = 0; i < objectsList.Count; i++)
         {
-            Destroy(cloudsList[i]);
-            cloudsList[i] = null;
+            Destroy(objectsList[i]);
+            objectsList[i] = null;
         }
     }
 

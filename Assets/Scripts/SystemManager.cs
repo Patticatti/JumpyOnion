@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class SystemManager : MonoBehaviour //has all the global shit
     public ProgressBar progBar;
 
     public float height = 0f;
+    public int currentHeight;
     public float totalHeight = 20f;
     public float playerPosition;
     public bool isGameOver = false;
@@ -37,6 +39,7 @@ public class SystemManager : MonoBehaviour //has all the global shit
     private void Update()
     {
         playerPosition = player.transform.position.y;
+        currentHeight = (int)Math.Round(playerPosition / LevelGenerator.instance.cloudSpacing);
         progBar.UpdateProgress(playerPosition); //move to game over after fix
         if (isGameOver == false)
             CheckHeight();

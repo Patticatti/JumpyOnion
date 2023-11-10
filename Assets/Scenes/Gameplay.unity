@@ -328,7 +328,7 @@ MonoBehaviour:
   levelClouds: []
   smallCloud: {fileID: 3048422671937342849, guid: 302dced840866be45803cbe6a02c894a, type: 3}
   largeCloud: {fileID: 5244479885749352952, guid: 28f918d8285f57f4181d9063b0533252, type: 3}
-  coinPrefab: {fileID: 0}
+  coinPrefab: {fileID: 3817218910669853182, guid: 76a1995d1d3d5214dab67792715f798c, type: 3}
 --- !u!224 &2055695395 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7583410246203941713, guid: 84d43e1fbcba7dd468823ef787c95c5a, type: 3}

@@ -69,22 +69,32 @@ public class LevelGenerator : MonoBehaviour
             }
             currentLevel++;
         }
+        for (int x = 0; x<5; x++)
+        {
+            GenerateCloudRow(currentLevel, 0.8f, false);
+            GenerateCloudRow(currentLevel, 0.8f, true);
+            currentLevel++;
+        }
         SystemManager.instance.progBar.SetTotalHeight(levels * cloudSpacing);
     }
 
-    private void GenerateCloudRow(float mainChance) 
+    private void GenerateCloudRow(int level, float chance, bool isExtra = false) 
     //reference cloud, change for main to be large, chance for extra to be large
     {
-        //float coinFrequency = currentLevel*
-        if (Random.Range(0f,1.0f) < mainChance) //set as large
-        {
-            //GenerateCloud();
-        }
-        //generate main cloud first then add if needed
-        //first determine type of cloud based on main chance
-        //Random.Range(mainChan);
         ResetSmallPos(); //reset pos's
         ResetLargePos();
+        int mainPos;
+        //generate big cloud
+        if (Random.Range(0f,1.0f) < chance) //set as large
+        {
+            mainPos = ChooseRandFromList(availLargePos);
+            GenerateCloud(mainPos, level, true, isExtra);
+        }
+        else
+        {
+            mainPos = ChooseRandFromList(availSmallPos);
+            GenerateCloud(mainPos, level, false, isExtra);
+        }
     }
 
     private void CalcItemFrequency(int level, float posx, float posy) //per cloud
@@ -97,23 +107,24 @@ public class LevelGenerator : MonoBehaviour
             chance = (level - minFrequency)/(maxFrequency - minFrequency);
             if (Random.Range(0f,1f)<chance)
             {
-                objectsList.Add(Instantiate(coinPrefab, new Vector3(posx, posy + 1.0f, 0f), Quaternion.identity));
+                objectsList.Add(Instantiate(coinPrefab, new Vector3(posx, posy + 1.5f, 0f), Quaternion.identity));
             }
         }
     }
 
-    private void InstantiateCloud(Cloud cloud, int level)
+    private void InstantiateCloud(Cloud cloud, int level, bool extra)
     {
         float newPosX;
+        float newPosY = PosY(cloud.posy, extra);
         if (!cloud.cloudType)
         {
             newPosX = LargePosX(cloud.posx);
-            objectsList.Add(Instantiate(largeCloud, new Vector3(newPosX, PosY(cloud.posy), 0f), Quaternion.identity));
+            objectsList.Add(Instantiate(largeCloud, new Vector3(newPosX, newPosY, 0f), Quaternion.identity));
         }
         else
         {
             newPosX = SmallPosX(cloud.posx);
-            objectsList.Add(Instantiate(smallCloud, new Vector3(newPosX, PosY(cloud.posy), 0f), Quaternion.identity));
+            objectsList.Add(Instantiate(smallCloud, new Vector3(newPosX, newPosY, 0f), Quaternion.identity));
         }
         CalcItemFrequency(level, newPosX, PosY(cloud.posy));
     }
@@ -127,7 +138,7 @@ public class LevelGenerator : MonoBehaviour
         cloud.posy = level;
         cloud.cloudType = !large;
         levelClouds.Add(cloud);
-        InstantiateCloud(cloud, level);
+        InstantiateCloud(cloud, level, extra);
     }
 
     private float LargePosX(int pos) //convert 0-2 to -6.5f, 0f, 6.5f

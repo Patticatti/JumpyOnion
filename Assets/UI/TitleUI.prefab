@@ -347,6 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c15ddfe9b18dca40a2ee6863097693a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplayScene: Gameplay
   rectTransform: {fileID: 636540251725272553}
 --- !u!1 &4619428081687535167
 GameObject:
@@ -437,6 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c15ddfe9b18dca40a2ee6863097693a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplayScene: Gameplay
   rectTransform: {fileID: 6796360202381936816}
 --- !u!1 &4940874218297219230
 GameObject:
@@ -708,6 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c15ddfe9b18dca40a2ee6863097693a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplayScene: Gameplay
   rectTransform: {fileID: 4834046081887826083}
 --- !u!1 &8841231620221543577
 GameObject:
@@ -720,7 +723,7 @@ GameObject:
   - component: {fileID: 8272370504499877101}
   - component: {fileID: 1121852151322036164}
   - component: {fileID: 1887612962664620724}
-  - component: {fileID: 8014332227159930655}
+  - component: {fileID: 3499277407648264349}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -786,7 +789,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8014332227159930655
+--- !u!114 &3499277407648264349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -795,7 +798,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8841231620221543577}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c15ddfe9b18dca40a2ee6863097693a, type: 3}
+  m_Script: {fileID: 11500000, guid: 14834126f9611ae4bbb553a2a12ac43e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplayScene: Gameplay
   rectTransform: {fileID: 8272370504499877101}

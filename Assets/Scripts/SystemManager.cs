@@ -32,10 +32,6 @@ public class SystemManager : MonoBehaviour //has all the global shit
     private ScoreCounter scoreCounter;
     private const int scoreModifier = 2;
 
-    private void Start(){ //maybe change to find through instances
-        progBar.SetTotalHeight(totalHeight);
-    }
-
     private void Update()
     {
         playerPosition = player.transform.position.y;

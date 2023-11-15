@@ -19,18 +19,18 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private AudioSource jumpSoundEffect;
 
-    // Start is called before the first frame update
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
+        rb.gravityScale = 0;
         jumpHeight = LevelGenerator.instance.cloudSpacing;
         //anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    private void Update()
+    public void PlayerUpdate()
     {
         dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);

@@ -14,7 +14,10 @@ public class SystemManager : MonoBehaviour //has all the global shit
             instance = this;
         player = GameObject.FindWithTag("Player");
         progressBar = GameObject.FindWithTag("Bar");
-        scoreCounter = GameObject.FindWithTag("Score").GetComponent<ScoreCounter>();;
+        scoreCounter = GameObject.FindWithTag("Score").GetComponent<ScoreCounter>();
+        countDownObj = GameObject.FindWithTag("Countdown");
+        countDownCounter = countDownObj.GetComponent<ScoreCounter>();
+        playerController = player.GetComponent<PlayerController>();
         progBar = progressBar.GetComponent<ProgressBar>();
     }
     #endregion
@@ -29,16 +32,30 @@ public class SystemManager : MonoBehaviour //has all the global shit
     public float playerPosition;
     public bool isGameOver = false;
 
+    private int countDownTimer = 3;
     private ScoreCounter scoreCounter;
+    private ScoreCounter countDownCounter;
+    private PlayerController playerController;
+    private GameObject countDownObj;
     private const int scoreModifier = 2;
+    private bool gameStart = false;
+
+    private void Start()
+    {
+        StartCoroutine(CountDown());
+    }
 
     private void Update()
     {
-        playerPosition = player.transform.position.y;
-        currentHeight = (int)Math.Round(playerPosition / LevelGenerator.instance.cloudSpacing);
-        progBar.UpdateProgress(playerPosition); //move to game over after fix
-        if (isGameOver == false)
-            CheckHeight();
+        if (gameStart)
+        {
+            playerController.PlayerUpdate();
+            playerPosition = player.transform.position.y;
+            currentHeight = (int)Math.Round(playerPosition / LevelGenerator.instance.cloudSpacing);
+            progBar.UpdateProgress(playerPosition); //move to game over after fix
+            if (isGameOver == false)
+                CheckHeight();
+        }
     }
 
     public void AddScore(float score)
@@ -56,6 +73,19 @@ public class SystemManager : MonoBehaviour //has all the global shit
         //     Debug.Log("Game Over");
         //     isGameOver = true;
         // }
+    }
+
+    private IEnumerator CountDown()
+    {
+        for (int x = countDownTimer; x > -1; x--)
+        {
+            countDownCounter.DisplayScore(x);
+            Debug.Log("working");
+            yield return new WaitForSeconds(1);
+        }
+        player.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
+        gameStart = true;
+        countDownObj.SetActive(false);
     }
 
 }

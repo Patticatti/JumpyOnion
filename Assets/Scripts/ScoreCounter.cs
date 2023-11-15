@@ -13,7 +13,12 @@ public class ScoreCounter : MonoBehaviour
     {
         score += scoreAdd;
         intScore = (int)score * 5;
-        textComponent.text = intScore.ToString();
+        DisplayScore(intScore);
+    }
+
+    public void DisplayScore(int score)
+    {
+        textComponent.text = score.ToString();
     }
 
     public int GetScore()

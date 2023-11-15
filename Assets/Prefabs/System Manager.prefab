@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92483cf8f4967f44190b6401f6bab3b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  progressBar: {fileID: 0}
+  player: {fileID: 4258899319339319715, guid: 33041d563810c434cab97dc7e5441c34, type: 3}
+  progressBar: {fileID: 1561437816547984241, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+  countDown: {fileID: 1911973692219058900, guid: d41dde433560b1d419a227e4231b711d, type: 3}
   progBar: {fileID: 0}
   height: 0
   currentHeight: 0
@@ -65,8 +66,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 743a6385a3641b649b9334c67c3554eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels: 20
-  currentLevel: 1
+  levels: 0
+  currentLevel: 0
   cloudSpacing: 3.5
   levelClouds: []
   smallCloud: {fileID: 3048422671937342849, guid: 302dced840866be45803cbe6a02c894a, type: 3}

@@ -927,12 +927,48 @@ PrefabInstance:
       value: ProgressBar
       objectReference: {fileID: 0}
     - target: {fileID: 2888057289001915922, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2888057289001915922, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
       propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2888057289001915922, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2888057289001915922, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2888057289001915922, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2888057289001915922, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6259710710362636155, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259710710362636155, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8552110395617759766, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8552110395617759766, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8552110395617759766, guid: fa4f48e116af48e4ea1695d6fda88c42, type: 3}
+      propertyPath: m_Colors.m_ColorMultiplier
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

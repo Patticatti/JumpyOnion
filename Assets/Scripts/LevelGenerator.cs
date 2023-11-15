@@ -184,7 +184,7 @@ public class LevelGenerator : MonoBehaviour
             newPosX = SmallPosX(cloud.posx);
             objectsList.Add(Instantiate(smallCloud, new Vector3(newPosX, newPosY, 0f), Quaternion.identity));
         }
-        CalcItemFrequency(level, newPosX, PosY(cloud.posy));
+        CalcItemFrequency(level, newPosX, newPosY);
     }
 
     private void GenerateCloud(int posx, int level, bool large = true, bool extra = false)
@@ -209,7 +209,7 @@ public class LevelGenerator : MonoBehaviour
         float mod = 0f;
         if (extra) //-0.5f or 0.5f
         {
-            mod = 0.5f - (2 * (Random.Range(0,2) * 0.5f));//return 0.4 or -0.5f
+            mod = 1.5f - (2 * (Random.Range(0,2) * 1.5f));//return 1.5 or -1.5f
         }
         return (lvl * cloudSpacing) + mod;
     }
